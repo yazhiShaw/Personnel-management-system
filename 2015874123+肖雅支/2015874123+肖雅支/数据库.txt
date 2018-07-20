@@ -1,0 +1,53 @@
+drop database if exists company;
+create database company;
+use company;
+drop table if exists employee;
+create table employee(
+staffid varchar (20) primary key,
+staffname varchar (20) not null,
+staffpassword varchar (20) not null,
+ssuper int(1) default 0 not null,
+staffflag int(1) default 1 not null
+);
+
+drop table if exists department;
+create table department(
+departmentid varchar (20) primary key,
+departmentname varchar (20) not null,
+departmentflag int(1) default 1 not null
+);
+
+drop table if exists relationship;
+create table relationship(
+staffid varchar (20),
+departmentid varchar (20),
+salary varchar (10),
+rflag int(1) default 1 not null,
+work varchar (10),
+primary key(staffid,departmentid),
+foreign key (staffid) references employee (staffid) on delete cascade on update cascade,
+foreign key (departmentid) references department (departmentid) on delete cascade on update cascade
+);
+
+insert into employee values ('root','管理员','root',2,1);
+insert into employee values ('s02','李斯','223456',0,1);
+insert into employee values ('s03','王名','323456',0,1);
+insert into employee values ('s04','赵丽','423456',0,1);
+insert into employee values ('s12','陈琪','523456',0,1);
+insert into employee values ('s06','刘明','623456',0,1);
+insert into employee values ('s07','黄浩','723456',0,1);
+insert into employee values ('s08','王媛','823456',0,1);
+
+insert into department values ('d01','销售部',1);
+insert into department values ('d02','客服部',1);
+insert into department values ('d03','技术部',1);
+insert into department values ('d04','采购部',1);
+insert into department values ('d05','财政部',1);
+
+
+insert into relationship values ('s02','d01',6500,1,'销售部长');
+insert into relationship values ('s03','d02',5500,1,'客服经理');
+insert into relationship values ('s04','d03',4500,1,'技术人员');
+insert into relationship values ('s12','d04',6800,1,'采购人员');
+insert into relationship values ('s06','d05',3000,1,'财政部长');
+insert into relationship values ('s07','d03',3500,1,'技术总监');
